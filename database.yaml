@@ -81,23 +81,18 @@ spec:
         - containerPort: 5432
           protocol: TCP
         livenessProbe:
-          exec:
-            command:
-            - /usr/libexec/check-container
-            - --live
-          initialDelaySeconds: 120
+          tcpSocket:
+            port: 5432
           timeoutSeconds: 10
         readinessProbe:
-          exec:
-            command:
-            - /usr/libexec/check-container
+          tcpSocket:
+            port: 5432
           initialDelaySeconds: 5
           timeoutSeconds: 1
         resources:
           limits:
             memory: 1Gi
         securityContext:
-          privileged: false
           runAsNonRoot: true
           allowPrivilegeEscalation: false
           seccompProfile:
